@@ -2,6 +2,9 @@
 
 namespace RstGroup\ConferenceSystem\Domain\Reservation;
 
+use RstGroup\ConferenceSystem\Domain\Payment\DiscountService;
+use RstGroup\ConferenceSystem\Infrastructure\Reservation\ConferenceSeatsDao;
+
 class Conference
 {
     protected $id;
@@ -12,11 +15,17 @@ class Conference
     protected $seatsAvailability;
     protected $waitList;
     protected $reservations;
+    protected $conferenceSeatDao;
 
     /**
      * @param Seat[] $seats
      */
-    public function __construct(ConferenceId $id, SeatsAvailabilityCollection $seatsAvailability, ReservationsCollection $reservations, ReservationsCollection $waitList)
+    public function __construct(ConferenceId $id,
+                                SeatsAvailabilityCollection $seatsAvailability,
+                                ReservationsCollection $reservations,
+                                ReservationsCollection $waitList,
+    ConferenceSeatsDao $conferenceSeatsDao
+    )
     {
         $this->id = $id;
 
@@ -24,6 +33,7 @@ class Conference
 
         $this->reservations = $reservations;
         $this->waitList = $waitList;
+        $this->conferenceSeatDao = $conferenceSeatsDao;
     }
 
     /**
@@ -93,6 +103,27 @@ class Conference
 
     }
 
+    public function purchase(OrderId $orderId,DiscountService $discountService)
+    {
+        $reservation = $this->getReservations()->get(new ReservationId($this->id, $orderId));
+
+        $totalCost = 0;
+        $seats = $reservation->getSeats();
+        $seatsPrices = $this->conferenceSeatDao->getSeatsPrices($this->id);
+
+        foreach ($seats->getAll() as $seat) {
+            $priceForSeat = $seatsPrices[$seat->getType()][0];
+
+            $dicountedPrice = $discountService->calculateForSeat($seat, $priceForSeat);
+            $regularPrice = $priceForSeat * $seat->getQuantity();
+
+            $totalCost += min($dicountedPrice, $regularPrice);
+        }
+
+        $this->closeReservationForOrder($orderId);
+
+        return $totalCost;
+    }
 
     public function closeReservationForOrder(OrderId $orderId)
     {

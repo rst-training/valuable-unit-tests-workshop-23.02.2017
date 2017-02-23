@@ -34,22 +34,7 @@ class RegistrationService
     public function confirmOrder($orderId, $conferenceId)
     {
         $conference = $this->getConferenceRepository()->get(new ConferenceId($conferenceId));
-        $reservation = $conference->getReservations()->get(new ReservationId(new ConferenceId($conferenceId), new OrderId($orderId)));
 
-        $totalCost = 0;
-        $seats = $reservation->getSeats();
-        $seatsPrices = $this->getConferenceDao()->getSeatsPrices($conferenceId);
-
-        foreach ($seats->getAll() as $seat) {
-            $priceForSeat = $seatsPrices[$seat->getType()][0];
-
-            $dicountedPrice = $this->getDiscountService()->calculateForSeat($seat, $priceForSeat);
-            $regularPrice = $priceForSeat * $seat->getQuantity();
-
-            $totalCost += min($dicountedPrice, $regularPrice);
-        }
-
-        $conference->closeReservationForOrder(new OrderId($orderId));
 
         $approvalLink = $this->getPaypalPayments()->getApprovalLink($conference, $totalCost);
 

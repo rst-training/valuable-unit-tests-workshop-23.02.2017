@@ -13,33 +13,34 @@ use RstGroup\ConferenceSystem\Infrastructure\Reservation\ConferenceMemoryReposit
 
 class RegistrationServiceTest extends \PHPUnit_Framework_TestCase
 {
-    public function testShouldCalculateTotalCostOfReservationWithDiscount()
-    {
-        //given orderId
-        $totalValue = 100;
-        $orderId = 1;
-        //and conference id
-        $conferenceId = 3;
-        //and conference
-        $seatsAvailible = new SeatsAvailabilityCollection();
-        $seatsAvailible->set(1,2);
-        $reservationCollection = new ReservationsCollection();
-        $conferenceId = new Conference(new ConferenceId($conferenceId),$seatsAvailible,$reservationCollection)
-        $paypalPayments = $this->getMockBuilder(PaypalPayments::class)
-            ->getMock();
+//    public function testShouldCalculateTotalCostOfReservationWithDiscount()
+//    {
+//        //given orderId
+//        $totalValue = 100;
+//        $orderId = 1;
+//        //and conference id
+//        $conferenceId = 3;
+//        //and conference
+//        $seatsAvailible = new SeatsAvailabilityCollection();
+//        $seatsAvailible->set(1,2);
+//        $reservationCollection = new ReservationsCollection();
+//        $conferenceId = new Conference(new ConferenceId($conferenceId),$seatsAvailible,$reservationCollection);
+//        $paypalPayments = $this->getMockBuilder(PaypalPayments::class)
+//            ->getMock();
+//
+//
+//        $reqistrationService = $this->getMockBuilder(RegistrationService::class)
+//        ->getMock();
+//
+//        $reqistrationService->method('getPaypalPayments')
+//            ->will($paypalPayments);
+//
+//        //expected paypal payments bulid link with correct total value
+//        $paypalPayments->expects($this->once())->method('getApprovalLink')
+//                ->with($conferenceId,$totalValue);
+//
+//        //when confirm order
+//        $reqistrationService->
+///   }
 
-
-        $reqistrationService = $this->getMockBuilder(RegistrationService::class)
-        ->getMock();
-
-        $reqistrationService->method('getPaypalPayments')
-            ->will($paypalPayments);
-
-        //expected paypal payments bulid link with correct total value
-        $paypalPayments->expects($this->once())->method('getApprovalLink')
-                ->with($conferenceId,$totalValue);
-
-        //when confirm order
-        $reqistrationService->
-    }
 }
