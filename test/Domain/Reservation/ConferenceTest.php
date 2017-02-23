@@ -26,6 +26,11 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    public function testShouldRemoveReservationWhenReservationIsForOrder()
+    {
+
+    }
+
     public function testShouldReturnErrorWhenReservationNotExist()
     {
 
