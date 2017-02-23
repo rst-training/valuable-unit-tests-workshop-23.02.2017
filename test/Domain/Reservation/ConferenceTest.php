@@ -19,7 +19,7 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldMakeAReservation()
+    public function shouldMakeAReservationAndAddItToReservationList()
     {
 
     }
