@@ -2,18 +2,23 @@
 
 namespace RstGroup\ConferenceSystem\Application;
 
+use RstGroup\ConferenceSystem\Domain\Payment\DiscountService;
 use RstGroup\ConferenceSystem\Domain\Payment\PaypalPayments;
-use RstGroup\ConferenceSystem\Domain\Reservation\Conference;
 use RstGroup\ConferenceSystem\Infrastructure\Reservation\ConferenceMemoryRepository;
+use RstGroup\ConferenceSystem\Infrastructure\Reservation\ConferenceSeatsDao;
 
 class RegistrationServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function test_order_is_confirmed_and_total_cost_have_discount_applied()
     {
-        $registrationService = new RegistrationService();
+        $registrationService = $this->getMockBuilder(RegistrationService::class)
+            ->setMethods(['getConferenceRepository', 'getConferenceDao', 'getDiscountService' , 'getPaypalPayments'])
+            ->getMock();
 
-        $conferenceMock = $this->getMock(Conference::class);
         $conferenceRepositoryMock = $this->getMock(ConferenceMemoryRepository::class);
+        $conferenceDaoMock = $this->getMock(ConferenceSeatsDao::class);
+        $discountServiceMock = $this->getMock(DiscountService::class);
+        $payPalServiceMock = $this->getMock(PaypalPayments::class);
 
         $discountPrice = 20;
         $seatsPrices = [
