@@ -16,11 +16,35 @@ use RstGroup\ConferenceSystem\Domain\Reservation\Conference;
 
 class ConferenceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @todo: remove it
-     */
-    public function test_example_name()
+
+    public function testCancelReservationForOrderIncreasesNumberOfSeatsAvailable()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCancelReservationForOrderThrowsErrorWhenNoReservationExists()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCancelReservationForOrderRemovesReservationFromReservationsList()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCancelReservationForOrderAddsNewReservationFromWaitingListIfEnoughSeatsAvailable()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCancelReservationForOrderRemovesReservationFromWaitingListIfEnoughSeatsAvailable()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testCancelReservationForOrderDoesNotAddNewReservationFromWaitingListIfNotEnoughSeatsAvailable()
     {
         $this->markTestSkipped();
     }
 }
+-
