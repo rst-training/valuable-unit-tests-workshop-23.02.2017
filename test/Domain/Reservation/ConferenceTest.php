@@ -23,4 +23,43 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped();
     }
+
+    public function testMakeReservationForOrderThrowsReservationAlreadyExistException()
+    {
+
+    }
+
+    public function testMakeReservationForOrderSucceededAndDecreasedAvailableSeatsQuantity()
+    {
+
+    }
+
+    public function testMakeReservationForOrderSucceededAndReservationsWasAdded()
+    {
+
+    }
+
+    /**
+     * @dataProvider makeReservationForOrderNullParamsProvider
+     */
+    public function testMakeReservationForOrderNullEntryParams($orderId, $seatCollection)
+    {
+
+    }
+
+    public function makeReservationForOrderNullParamsProvider()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function testBiggerReservationOrderAddsToWaitList()
+    {
+
+    }
+
+
+
 }
