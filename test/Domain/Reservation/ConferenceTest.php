@@ -43,6 +43,14 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldAddReservationToAWaitingListIfThereIsLessSeatsThanDesired()
+    {
+
+    }
+
+    /**
+     * @test
+     */
     public function shouldDecrementAvailableSeatsOnReservation()
     {
 
