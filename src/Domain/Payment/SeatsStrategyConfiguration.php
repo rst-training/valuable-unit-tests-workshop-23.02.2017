@@ -14,6 +14,6 @@ class SeatsStrategyConfiguration
      */
     public function isEnabledForSeat($strategy, Seat $seat)
     {
-        return false;
+        return true;
     }
 }
