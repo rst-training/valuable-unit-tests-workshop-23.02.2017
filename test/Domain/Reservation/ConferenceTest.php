@@ -52,7 +52,7 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldCalculateTotalValueWithDiscountForOrderWhenPurchaseReservation()
     {
-        $expectedTotalValue = 0;
+        $expectedTotalValue = 38;
         //given conference id
         $conferenceId = new ConferenceId(4);
         //and order id
@@ -80,7 +80,7 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
             ->with($conferenceId)
             ->willReturn([
                 'test' => [
-                    '19.00'
+                    0 => '19.00'
                 ]
             ]);
 

@@ -13,6 +13,11 @@ use RstGroup\ConferenceSystem\Infrastructure\Reservation\ConferenceMemoryReposit
 
 class RegistrationServiceTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function test ()
+    {
+        $this->assertFalse(false);
+    }
 //    public function testShouldCalculateTotalCostOfReservationWithDiscount()
 //    {
 //        //given orderId

@@ -24,7 +24,7 @@ class Conference
                                 SeatsAvailabilityCollection $seatsAvailability,
                                 ReservationsCollection $reservations,
                                 ReservationsCollection $waitList,
-    ConferenceSeatsDao $conferenceSeatsDao
+                                ConferenceSeatsDao $conferenceSeatsDao
     )
     {
         $this->id = $id;
@@ -103,7 +103,7 @@ class Conference
 
     }
 
-    public function purchase(OrderId $orderId,DiscountService $discountService)
+    public function purchase(OrderId $orderId, DiscountService $discountService)
     {
         $reservation = $this->getReservations()->get(new ReservationId($this->id, $orderId));
 
@@ -117,7 +117,11 @@ class Conference
             $dicountedPrice = $discountService->calculateForSeat($seat, $priceForSeat);
             $regularPrice = $priceForSeat * $seat->getQuantity();
 
-            $totalCost += min($dicountedPrice, $regularPrice);
+            if ($dicountedPrice === null) {
+                $totalCost += $regularPrice;
+            } else {
+                $totalCost += min($dicountedPrice, $regularPrice);
+            }
         }
 
         $this->closeReservationForOrder($orderId);
