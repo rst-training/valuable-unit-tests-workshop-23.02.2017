@@ -2,7 +2,9 @@
 
 namespace RstGroup\ConferenceSystem\Domain\Payment;
 
-class DiscountService
+use RstGroup\ConferenceSystem\Domain\Reservation\Seat;
+
+class DiscountService implements DiscountServiceInterface
 {
     /**
      * @var SeatsStrategyConfiguration
@@ -14,7 +16,7 @@ class DiscountService
         $this->configuration = $configuration;
     }
 
-    public function calculateForSeat($seat, $price)
+    public function calculateForSeat(Seat $seat, $price)
     {
         $discountedPrice = null;
 
