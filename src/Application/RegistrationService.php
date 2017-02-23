@@ -31,23 +31,14 @@ class RegistrationService
         $conference->cancelReservationForOrder(new OrderId($orderId));
     }
 
+    // sprawdzić czy metoda wylicza rabat
+    // napisać coś co wylicza całkowity koszt rezerwacji
+    // test który wylicza koszt z rabatem
     public function confirmOrder($orderId, $conferenceId)
     {
         $conference = $this->getConferenceRepository()->get(new ConferenceId($conferenceId));
-        $reservation = $conference->getReservations()->get(new ReservationId(new ConferenceId($conferenceId), new OrderId($orderId)));
 
-        $totalCost = 0;
-        $seats = $reservation->getSeats();
-        $seatsPrices = $this->getConferenceDao()->getSeatsPrices($conferenceId);
-
-        foreach ($seats->getAll() as $seat) {
-            $priceForSeat = $seatsPrices[$seat->getType()][0];
-
-            $dicountedPrice = $this->getDiscountService()->calculateForSeat($seat, $priceForSeat);
-            $regularPrice = $priceForSeat * $seat->getQuantity();
-
-            $totalCost += min($dicountedPrice, $regularPrice);
-        }
+        $totalCost = $conference->calculateTotalCost($orderId, $this->getConferenceDao()->getSeatsPrices($conferenceId), $this->getDiscountService());
 
         $conference->closeReservationForOrder(new OrderId($orderId));
 
@@ -56,6 +47,10 @@ class RegistrationService
         $response = new RedirectResponse($approvalLink);
         $response->send();
     }
+    
+
+
+
 
     protected function fromArray($seats)
     {

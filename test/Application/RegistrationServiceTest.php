@@ -1,6 +1,6 @@
 <?php
 
-namespace RstGroup\ConferenceSystem\Domain\Reservation\Test;
+namespace RstGroup\ConferenceSystem\Application\Test;
 
 use RstGroup\ConferenceSystem\Domain\Reservation\ConferenceId;
 use RstGroup\ConferenceSystem\Domain\Reservation\OrderId;
@@ -14,7 +14,7 @@ use RstGroup\ConferenceSystem\Domain\Reservation\SeatsAvailabilityCollection;
 use RstGroup\ConferenceSystem\Domain\Reservation\SeatsCollection;
 use RstGroup\ConferenceSystem\Domain\Reservation\Conference;
 
-class ConferenceTest extends \PHPUnit_Framework_TestCase
+class RegistrationServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @todo: remove it
@@ -24,43 +24,10 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
         $this->markTestSkipped();
     }
 
-    public function testMakeReservationForOrderThrowsReservationAlreadyExistException()
+
+    public function testIfDiscountWasUsedWhenMakingTheOrder()
     {
 
     }
-
-    public function testMakeReservationForOrderSucceededAndDecreasedAvailableSeatsQuantity()
-    {
-
-    }
-
-    public function testMakeReservationForOrderSucceededAndReservationsWasAdded()
-    {
-
-    }
-
-    /**
-     * @dataProvider makeReservationForOrderNullParamsProvider
-     */
-    public function testMakeReservationForOrderNullEntryParams($orderId, $seatCollection)
-    {
-
-    }
-
-    public function makeReservationForOrderNullParamsProvider()
-    {
-
-    }
-
-    /**
-     * @test
-     */
-    public function testBiggerReservationOrderAddsToWaitList()
-    {
-
-    }
-
-
-
 
 }

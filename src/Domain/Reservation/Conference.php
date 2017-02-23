@@ -130,5 +130,28 @@ class Conference
         return $this->reservations;
     }
 
+    /**
+     * @param $orderId
+     * @param array $seatsPrices
+     * @return int
+     */
+    public function calculateTotalCost($orderId, array $seatsPrices, DiscountService $discounter)
+    {
+        $reservation = $this->getReservations()->get(new ReservationId($this->getId()), new OrderId($orderId));
+
+        $totalCost = 0;
+        $seats = $reservation->getSeats();
+
+        foreach ($seats->getAll() as $seat) {
+            $priceForSeat = $seatsPrices[$seat->getType()][0];
+
+            $dicountedPrice = $discounter->calculateForSeat($seat, $priceForSeat);
+            $regularPrice = $priceForSeat * $seat->getQuantity();
+
+            $totalCost += min($dicountedPrice, $regularPrice);
+        }
+
+        return $totalCost;
+    }
 
 }
