@@ -33,4 +33,8 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
     public function adds_new_reservation()
     {
     }
+
+    public function fails_for_bad_seats_collection()
+    {
+    }
 }
