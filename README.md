@@ -1,6 +1,6 @@
 # Workshop participant
 
-Jan Kowalski  
+Amadeusz Winogrodzki 
 
 # Setup
 
