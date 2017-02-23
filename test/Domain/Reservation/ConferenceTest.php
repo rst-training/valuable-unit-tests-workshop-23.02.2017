@@ -28,17 +28,17 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function adds_reservation_to_waitlist_with_passed_orderid_if_theres_not_enough_seats_available()
+    public function adds_reservation_to_waitlist_with_passed_orderid_if_theres_not_enough_seats_of_given_type_available()
     {
 
     }
 
-    public function adds_new_reservation_with_passed_orderid_if_theres_enough_available_seats()
+    public function adds_new_reservation_with_passed_orderid_if_theres_enough_available_seats_of_given_type()
     {
 
     }
 
-    public function decrements_available_seats_quantity_when_reservation_has_been_made()
+    public function decrements_available_seats_of_given_type_quantity_when_reservation_has_been_made()
     {
 
     }
