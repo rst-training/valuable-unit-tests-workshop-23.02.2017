@@ -18,10 +18,13 @@ class DiscountServiceTest extends \PHPUnit_Framework_TestCase
     public function returns_price_discounted_by_15_percent_if_at_least_10_early_bird_seats_are_bought2()
     {
         $configuration = $this->getMock(SeatsStrategyConfiguration::class);
-        $configuration->method('isEnabledForSeat')->willReturn(true);
 
-        $discountStrategy = new AtLeastTenEarlyBirdSeatsDiscountStrategy($configuration);
-        $discountService = new DiscountService([$discountStrategy]);
+        $configuration->method('isEnabledForSeat')->willReturn(true);
+        $birdDiscountStrategy = new AtLeastTenEarlyBirdSeatsDiscountStrategy($configuration);
+        $configuration->method('isEnabledForSeat')->willReturn(false);
+        $freeDiscountStrategy = new FreeSeatDiscountStrategy($configuration);
+
+        $discountService = new DiscountService([$birdDiscountStrategy, $freeDiscountStrategy]);
 
         $seat = $this->getMockBuilder(Seat::class)->disableOriginalConstructor()->getMock();
 
