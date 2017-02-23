@@ -87,4 +87,6 @@ class RegistrationService
     {
         return new PaypalPayments();
     }
+
+
 }

@@ -1,30 +1,38 @@
 <?php
 
 use RstGroup\ConferenceSystem\Application\RegistrationService;
+use RstGroup\ConferenceSystem\Domain\Payment\DiscountService;
 use RstGroup\ConferenceSystem\Domain\Payment\PaypalPayments;
+use RstGroup\ConferenceSystem\Domain\Reservation\Reservation;
+use RstGroup\ConferenceSystem\Domain\Reservation\ReservationId;
+use RstGroup\ConferenceSystem\Domain\Reservation\SeatsCollection;
+use RstGroup\ConferenceSystem\Infrastructure\Reservation\ConferenceSeatsDao;
 
 
 class RegistrationServiceTest extends PHPUnit_Framework_TestCase
 {
-    public function includes_discount_in_total_cost () {
+    public function includes_discount_in_conference_total_cost () {
         //given
 
-        $numberOfDiscountedSeats = 1;
-        $discountedSeatPrice = 80;
+        $seats = new SeatsCollection();
 
-        $numberOfNormalSeats = 2;
-        $normalSeatPrice = 100;
 
-        $totalCost = ($numberOfDiscountedSeats * $discountedSeatPrice) + ($numberOfNormalSeats * $normalSeatPrice);
+        $totalCost = 100;
 
-        $orderId = 1;
-        $conferenceId = 1;
 
-        //expects
 
-        $this->getMock(PaypalPayments::class)->expects(self::once())->method('getApprovalLink')->with($conference, $totalCost);
+        $conferenceSeatsDao = $this->getMock(ConferenceSeatsDao::class);
+        $discountService = $this->getMock(DiscountService::class)->method('calculateForSeat')->willReturn(100);
+
+        $costCalculationService = new CostCalculationService($conferenceSeatsDao, $discountService);
 
         //when
+
+        $calculatedCosts = $costCalculationService->getTotalCost($seats);
+
+        //then
+        $this->assertEquals($calculatedCosts, $totalCost);
+
 
 
     }
