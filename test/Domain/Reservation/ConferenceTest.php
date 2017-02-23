@@ -17,9 +17,33 @@ use RstGroup\ConferenceSystem\Domain\Reservation\Conference;
 class ConferenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @todo: remove it
+     * @test
      */
-    public function test_example_name()
+    public function check_if_seats_are_available_after_canceling_existing_reservation()
+    {
+        $this->markTestSkipped();
+    }
+
+    /**
+     * @test
+     */
+    public function check_if_seats_are_automatically_booked_from_wait_list_after_canceling_existing_reservation()
+    {
+        $this->markTestSkipped();
+    }
+
+    /**
+     * @test
+     */
+    public function check_if_fail_when_canceling_not_existing_reservation()
+    {
+        $this->markTestSkipped();
+    }
+
+    /**
+     * @test
+     */
+    public function check_if_fail_when_canceling_reservation_with_wrong_order_id()
     {
         $this->markTestSkipped();
     }
