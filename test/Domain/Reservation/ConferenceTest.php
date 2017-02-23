@@ -24,21 +24,21 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
         $this->markTestSkipped();
     }
 
-    public function test_throws_an_exception_if_reservation_with_passed_orderid_already_exists() {
+    public function throws_an_exception_if_reservation_with_passed_orderid_already_exists() {
 
     }
 
-    public function test_adds_reservation_to_waitlist_with_passed_orderid_if_theres_not_enough_seats_available()
+    public function adds_reservation_to_waitlist_with_passed_orderid_if_theres_not_enough_seats_available()
     {
 
     }
 
-    public function test_adds_new_reservation_with_passed_orderid_if_theres_enough_available_seats()
+    public function adds_new_reservation_with_passed_orderid_if_theres_enough_available_seats()
     {
 
     }
 
-    public function test_decrements_available_seats_quantity_when_reservation_has_been_made()
+    public function decrements_available_seats_quantity_when_reservation_has_been_made()
     {
 
     }
