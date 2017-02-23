@@ -9,27 +9,25 @@ class DiscountService
      */
     private $configuration;
 
-    public function __construct(SeatsStrategyConfiguration $configuration)
+    /**
+     * @var DiscountStrategyCollection
+     */
+    private $strategiesCollection;
+
+    public function __construct(SeatsStrategyConfiguration $configuration,DiscountStrategyCollection $strategiesCollection)
     {
         $this->configuration = $configuration;
+        $this->strategiesCollection = $strategiesCollection;
     }
 
     public function calculateForSeat($seat, $price)
     {
         $discountedPrice = null;
 
-        foreach ($this->seatDiscountStrategies() as $strategy) {
+        foreach ($this->strategiesCollection->getAll() as $strategy) {
             $discountedPrice = $strategy->calculate($seat, $price, $discountedPrice);
         }
 
         return $discountedPrice;
-    }
-
-    protected function seatDiscountStrategies()
-    {
-       return [
-           new AtLeastTenEarlyBirdSeatsDiscountStrategy($this->configuration),
-           new FreeSeatDiscountStrategy($this->configuration),
-       ];
     }
 }
