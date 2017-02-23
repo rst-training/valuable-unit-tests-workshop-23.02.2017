@@ -16,10 +16,22 @@ use RstGroup\ConferenceSystem\Domain\Reservation\Conference;
 
 class ConferenceTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @todo: remove it
-     */
-    public function test_example_name()
+    public function testReservationIsCancelledForGivenOrderAndCanBeMoved()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testReservationIsCancelledForGivenOrderAndCanNotBeMoved()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testThrowsExceptionIfReservationDoesNotExist()
+    {
+        $this->markTestSkipped();
+    }
+
+    public function testThrowsExceptionForInvalidFormatOfOrderId()
     {
         $this->markTestSkipped();
     }
