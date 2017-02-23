@@ -17,10 +17,50 @@ use RstGroup\ConferenceSystem\Domain\Reservation\Conference;
 class ConferenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @todo: remove it
+     * @test
      */
-    public function test_example_name()
+    public function shouldMakeAReservation()
     {
-        $this->markTestSkipped();
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFailToMakeAReservationIfThereIsAReservationForGivenOrder()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFailToMakeAReservationIfThereIsLessSeatsThanDesired()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldDecrementAvailableSeatsOnReservation()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFailToMakeAReservationForZeroSeats()
+    {
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFailIfIncorrectOrderIdIsGivenForAReservation()
+    {
+
     }
 }
