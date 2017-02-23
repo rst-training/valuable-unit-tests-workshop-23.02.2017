@@ -47,4 +47,3 @@ class ConferenceTest extends \PHPUnit_Framework_TestCase
         $this->markTestSkipped();
     }
 }
--
