@@ -10,7 +10,7 @@ class PoolDiscountStrategyTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function returns_the_original_price_if_discount_pool_is_empty()
+    public function returns_discount_equal_to_zero_if_discount_pool_is_empty()
     {
         $poolDiscountStrategy = new PoolDiscountStrategy();
         $seat = $this->getMockBuilder(Seat::class)->disableOriginalConstructor()->getMock();
