@@ -7,9 +7,8 @@ use RstGroup\ConferenceSystem\Domain\Reservation\Seat;
 interface SeatDiscountStrategy
 {
     /**
-     * @param $seat
-     * @param $price
+     * @param Seat $seat
      * @return mixed discount
      */
-    public function calculate(Seat $seat, $price);
+    public function calculate(Seat $seat);
 }

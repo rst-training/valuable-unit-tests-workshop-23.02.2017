@@ -7,13 +7,20 @@ use RstGroup\ConferenceSystem\Domain\Reservation\Seat;
 
 class PoolDiscountStrategy implements SeatDiscountStrategy
 {
+    private $discountPoolRepository;
+
+    public function __construct(DiscountPoolRepository $discountPoolRepository)
+    {
+        $this->discountPoolRepository = $discountPoolRepository;
+    }
+
     /**
-     * @param $seat
-     * @param $price
+     * @param Seat $seat
      * @return mixed discount
      */
-    public function calculate(Seat $seat, $price)
+    public function calculate(Seat $seat)
     {
-        return 0;
+        return $this->discountPoolRepository->getNumberOfDiscounts($seat) *
+            $this->discountPoolRepository->getDiscountPerSeat($seat);
     }
 }
