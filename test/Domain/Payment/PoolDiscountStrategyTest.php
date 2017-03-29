@@ -15,7 +15,6 @@ class PoolDiscountStrategyTest extends \PHPUnit_Framework_TestCase
     /**
      * @param Money $discount
      * @param Money $other
-     * @return bool
      */
     private function assertDiscountEquals(Money $discount, Money $other)
     {
