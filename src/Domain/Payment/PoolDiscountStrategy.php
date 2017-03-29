@@ -3,14 +3,21 @@
 namespace RstGroup\ConferenceSystem\Domain\Payment;
 
 
+use RstGroup\ConferenceSystem\Domain\Reservation\ConferenceId;
 use RstGroup\ConferenceSystem\Domain\Reservation\Seat;
 
 class PoolDiscountStrategy implements SeatDiscountStrategy
 {
     private $discountPoolRepository;
+    private $conferenceId;
 
-    public function __construct(DiscountPoolRepository $discountPoolRepository)
+    /**
+     * @param ConferenceId $conferenceId
+     * @param DiscountPoolRepository $discountPoolRepository
+     */
+    public function __construct(ConferenceId $conferenceId, DiscountPoolRepository $discountPoolRepository)
     {
+        $this->conferenceId = $conferenceId;
         $this->discountPoolRepository = $discountPoolRepository;
     }
 
@@ -20,7 +27,7 @@ class PoolDiscountStrategy implements SeatDiscountStrategy
      */
     public function calculate(Seat $seat)
     {
-        return $this->discountPoolRepository->getNumberOfDiscounts($seat) *
-            $this->discountPoolRepository->getDiscountPerSeat($seat);
+        return $this->discountPoolRepository->getNumberOfDiscounts($this->conferenceId, $seat) *
+            $this->discountPoolRepository->getDiscountPerSeat($this->conferenceId, $seat);
     }
 }
