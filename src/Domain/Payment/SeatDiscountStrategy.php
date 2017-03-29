@@ -8,7 +8,7 @@ interface SeatDiscountStrategy
 {
     /**
      * @param Seat $seat
-     * @return mixed discount
+     * @return Money discount
      */
     public function calculate(Seat $seat);
 }

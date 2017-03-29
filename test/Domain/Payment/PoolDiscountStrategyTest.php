@@ -2,13 +2,27 @@
 
 namespace RstGroup\ConferenceSystem\Domain\Payment\Test;
 
+use Litipk\BigNumbers\Decimal;
+use RstGroup\ConferenceSystem\Domain\Payment\Currency;
 use RstGroup\ConferenceSystem\Domain\Payment\DiscountPoolRepository;
+use RstGroup\ConferenceSystem\Domain\Payment\Money;
 use RstGroup\ConferenceSystem\Domain\Payment\PoolDiscountStrategy;
 use RstGroup\ConferenceSystem\Domain\Reservation\ConferenceId;
 use RstGroup\ConferenceSystem\Domain\Reservation\Seat;
 
 class PoolDiscountStrategyTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @param Money $discount
+     * @param Money $other
+     * @return bool
+     */
+    private function assertDiscountEquals(Money $discount, Money $other)
+    {
+        $this->assertTrue($discount->getAmount()->equals($other->getAmount()));
+        $this->assertEquals($discount->getCurrency(), $other->getCurrency());
+    }
+
     /**
      * @test
      */
@@ -18,13 +32,22 @@ class PoolDiscountStrategyTest extends \PHPUnit_Framework_TestCase
         $conferenceId = new ConferenceId(7);
         $discountPoolRepository = $this->getMock(DiscountPoolRepository::class);
         $discountPoolRepository->method('getNumberOfDiscounts')->willReturn(0);
-        $discountPoolRepository->method('getDiscountPerSeat')->willReturn(13);
+        $discountPoolRepository->method('getDiscountPerSeat')->willReturn(
+            new Money(
+                Decimal::fromInteger(13),
+                new Currency("PLN")
+            )
+        );
         $poolDiscountStrategy = new PoolDiscountStrategy($conferenceId, $discountPoolRepository);
         $seat = new Seat("Regular", $seatQuantity);
 
         $discount = $poolDiscountStrategy->calculate($seat);
 
-        $this->assertSame(0, $discount);
+        $expectedDiscount = new Money(
+            Decimal::fromInteger(0),
+            new Currency("PLN")
+        );
+        $this->assertDiscountEquals($expectedDiscount, $discount);
     }
 
     /**
@@ -34,15 +57,23 @@ class PoolDiscountStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $conferenceId = new ConferenceId(3);
         $numberOfSeats = 7;
-        $discountPerSeat = 12;
         $discountPoolRepository = $this->getMock(DiscountPoolRepository::class);
         $discountPoolRepository->method('getNumberOfDiscounts')->willReturn($numberOfSeats);
-        $discountPoolRepository->method('getDiscountPerSeat')->willReturn($discountPerSeat);
+        $discountPoolRepository->method('getDiscountPerSeat')->willReturn(
+            new Money(
+                Decimal::fromInteger(12),
+                new Currency("PLN")
+            )
+        );
         $poolDiscountStrategy = new PoolDiscountStrategy($conferenceId, $discountPoolRepository);
         $seat = new Seat("Regular", $numberOfSeats);
 
         $discount = $poolDiscountStrategy->calculate($seat);
 
-        $this->assertEquals(84, $discount);
+        $expectedDiscount = new Money(
+            Decimal::fromInteger(84),
+            new Currency("PLN")
+        );
+        $this->assertDiscountEquals($expectedDiscount, $discount);
     }
 }

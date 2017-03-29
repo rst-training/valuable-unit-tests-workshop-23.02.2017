@@ -18,7 +18,7 @@ interface DiscountPoolRepository
     /**
      * @param ConferenceId $conferenceId
      * @param Seat $seat
-     * @return mixed
+     * @return Money
      */
     public function getDiscountPerSeat(ConferenceId $conferenceId, Seat $seat);
 }

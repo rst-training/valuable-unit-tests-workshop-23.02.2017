@@ -3,6 +3,7 @@
 namespace RstGroup\ConferenceSystem\Domain\Payment;
 
 
+use Litipk\BigNumbers\Decimal;
 use RstGroup\ConferenceSystem\Domain\Reservation\ConferenceId;
 use RstGroup\ConferenceSystem\Domain\Reservation\Seat;
 
@@ -23,11 +24,16 @@ class PoolDiscountStrategy implements SeatDiscountStrategy
 
     /**
      * @param Seat $seat
-     * @return mixed discount
+     * @return Money discount
      */
     public function calculate(Seat $seat)
     {
-        return $this->discountPoolRepository->getNumberOfDiscounts($this->conferenceId, $seat) *
-            $this->discountPoolRepository->getDiscountPerSeat($this->conferenceId, $seat);
+        $discountPerSeat = $this->discountPoolRepository->getDiscountPerSeat($this->conferenceId, $seat);
+        $discountCurrency = $discountPerSeat->getCurrency();
+        $discountAmount = $discountPerSeat->getAmount()->mul(
+            Decimal::fromInteger($this->discountPoolRepository->getNumberOfDiscounts($this->conferenceId, $seat))
+        );
+
+        return new Money($discountAmount, $discountCurrency);
     }
 }
